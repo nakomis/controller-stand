@@ -84,7 +84,7 @@ static lv_obj_t *make_arc(lv_obj_t *scr, int size, int width)
     lv_arc_set_range(arc, 0, 100);
     lv_arc_set_value(arc, 0);
     lv_obj_remove_style(arc, NULL, LV_PART_KNOB);
-    lv_obj_set_clickable(arc, false);
+    lv_obj_remove_flag(arc, LV_OBJ_FLAG_CLICKABLE);
     lv_obj_set_style_arc_width(arc, width, LV_PART_MAIN);
     lv_obj_set_style_arc_width(arc, width, LV_PART_INDICATOR);
     lv_obj_set_style_arc_color(arc, lv_color_hex(0x1C1F26), LV_PART_MAIN);
