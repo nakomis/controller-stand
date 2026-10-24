@@ -1,0 +1,134 @@
+<mxfile>
+  <diagram name="controller-stand" id="arch">
+    <mxGraphModel adaptiveColors="auto" grid="1" gridSize="10" page="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="usb" value="USB-C wall supply&lt;br&gt;5 V / 3 A" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="0" y="240" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="fina" value="INA226&lt;br&gt;(front, 0x40)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="200" y="40" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="fsw" value="AP2553&lt;br&gt;load switch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="380" y="40" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="fpogo" value="Pogo pins&lt;br&gt;(resin carrier)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="560" y="40" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="fds" value="DualSense&lt;br&gt;front bay" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="740" y="40" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bina" value="INA226&lt;br&gt;(back, 0x41)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="200" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bsw" value="AP2553&lt;br&gt;load switch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="380" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bpogo" value="Pogo pins&lt;br&gt;(resin carrier)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="560" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="bds" value="DualSense&lt;br&gt;back bay" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="740" y="440" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="esp" value="ESP32-S3 &quot;Grogu&quot; (ESP-IDF)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;startSize=26;" vertex="1" parent="1">
+          <mxGeometry x="200" y="170" width="480" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="fwbays" value="bays&lt;br&gt;probe / presence / fault" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="esp">
+          <mxGeometry x="20" y="46" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="fwest" value="charge_estimator&lt;br&gt;CC / taper / full, % and min" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="esp">
+          <mxGeometry x="175" y="46" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="fwui" value="LVGL UI&lt;br&gt;two arcs + text" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="esp">
+          <mxGeometry x="330" y="46" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="fwota" value="Fleet OTA&lt;br&gt;signed, SHA-256, rollback" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="esp">
+          <mxGeometry x="175" y="126" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fw1" style="endArrow=classic;html=1;" edge="1" parent="esp" source="fwbays" target="fwest">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_fw2" style="endArrow=classic;html=1;" edge="1" parent="esp" source="fwest" target="fwui">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="lcd" value="GC9A01&lt;br&gt;1.28&quot; round 240×240" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="750" y="225" width="110" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="iot" value="AWS IoT Core&lt;br&gt;MQTT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="200" y="580" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="fleet" value="Fleet&lt;br&gt;device registry + OTA" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="380" y="580" width="120" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="S3 firmware bucket&lt;br&gt;signed images" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;size=10;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="560" y="575" width="120" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p1" value="5 V" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="usb" target="fina">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="70"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p2" value="5 V" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="usb" target="bina">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="470"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p3" value="5 V" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="usb" target="esp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p4" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="fina" target="fsw">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p5" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="fsw" target="fpogo">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p6" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="fpogo" target="fds">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p7" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="bina" target="bsw">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p8" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="bsw" target="bpogo">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="p9" style="endArrow=classic;html=1;strokeWidth=2;strokeColor=#d6b656;" edge="1" parent="1" source="bpogo" target="bds">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s1" value="I²C" style="endArrow=classic;startArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="fwbays" target="fina">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="EN / FAULT" style="endArrow=classic;startArrow=classic;html=1;dashed=1;exitX=0.85;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="esp" target="fsw">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3e" value="I²C" style="endArrow=classic;startArrow=classic;html=1;dashed=1;exitX=0.12;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="esp" target="bina">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="EN / FAULT" style="endArrow=classic;startArrow=classic;html=1;dashed=1;exitX=0.4;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="esp" target="bsw">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5" value="SPI" style="endArrow=classic;html=1;dashed=1;" edge="1" parent="1" source="fwui" target="lcd">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="n1" value="Wi-Fi / MQTT" style="endArrow=classic;startArrow=classic;html=1;edgeStyle=orthogonalEdgeStyle;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="fwota" target="iot">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="321"/>
+              <mxPoint x="160" y="610"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n2" value="ota_update" style="endArrow=classic;html=1;" edge="1" parent="1" source="fleet" target="iot">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="n3" value="presigned URL" style="endArrow=classic;html=1;" edge="1" parent="1" source="fleet" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

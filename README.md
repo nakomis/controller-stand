@@ -1,3 +1,5 @@
+<img src="docs/logo.png" alt="controller-stand logo" width="200" align="right"/>
+
 # controller-stand — a slide-on charging stand for two PS5 DualSense controllers
 
 ## Support
@@ -15,6 +17,7 @@ If you find this useful, please consider buying me a coffee:
 - [Repository Layout](#repository-layout)
 - [Hardware](#hardware)
 - [Building the firmware](#building-the-firmware)
+- [Over-the-air updates (Fleet)](#over-the-air-updates-fleet)
 - [Acknowledgements](#acknowledgements)
 - [Architecture Diagrams](#architecture-diagrams)
 - [Support](#support)
@@ -52,6 +55,7 @@ docking, hence the `~`.
 | `firmware/` | ESP-IDF project for the ESP32-S3: bay sensing, charge estimator, GC9A01 round-display UI (LVGL) |
 | `firmware/components/charge_estimator/` | Pure C charge-state estimator, no IDF dependencies |
 | `firmware/test/host/` | Host-run unit tests for the estimator (CMake + CTest) |
+| `infra/` | CDK: each stand as an AWS IoT Thing, so [Fleet](https://github.com/nakomis/nakomis-fleet) can update it over the air |
 | `hardware/` | Wiring, bill of materials, connector notes |
 | `cad/` | Exported printable parts and the measurements the CAD is built from |
 | `tools/` | Helper scripts (charge-log capture, measurement extraction) |
@@ -84,6 +88,14 @@ cmake -S firmware/test/host -B firmware/test/host/build
 cmake --build firmware/test/host/build
 ctest --test-dir firmware/test/host/build --output-on-failure
 ```
+
+## Over-the-air updates (Fleet)
+
+Grogu is updated from Fleet, using the same signed-image OTA as Katooni: the image is
+downloaded into the spare slot, checked (SHA-256, signature, project name, no
+downgrades), and kept only once it passes a self-test and reaches IoT Core within 120 s.
+Otherwise it rolls back. Setup, signing keys and provisioning are in
+[`firmware/ota-signing/README.md`](firmware/ota-signing/README.md) and `CLAUDE.md`.
 
 ## Acknowledgements
 

@@ -1,0 +1,79 @@
+menu "Grogu (controller-stand)"
+
+    config GROGU_SIMULATE
+        bool "Simulate bays (no INA226 or load switches fitted)"
+        default y
+        help
+            Feed the estimator and display from a simulated charge, sped up, instead of
+            real hardware. Useful for UI work before the power board exists.
+
+    config GROGU_SIM_SPEEDUP
+        int "Simulation speed-up factor"
+        depends on GROGU_SIMULATE
+        default 60
+
+    config GROGU_SHUNT_MILLIOHM
+        int "INA226 shunt resistance (milliohms)"
+        default 10
+        help
+            The prototype modules (Pcbfun, AliExpress) carry R010: 10 mOhm, an 8 A range
+            with 0.25 mA resolution. Some INA226 modules ship with R100 (100 mOhm), which
+            saturates at 819 mA, too low for a charging controller: swap it or set this
+            to match.
+
+    config GROGU_PROBE_PERIOD_MS
+        int "Presence probe period when a bay is empty (ms)"
+        default 2000
+
+    config GROGU_PROBE_ON_MS
+        int "Presence probe on-time (ms)"
+        default 400
+
+    config GROGU_PRESENT_MA
+        int "Probe current that counts as a docked controller (mA)"
+        default 15
+
+    config GROGU_DIM_AFTER_S
+        int "Dim the display after this many seconds without change"
+        default 60
+
+endmenu
+
+menu "Fleet and Wi-Fi (controller-stand)"
+
+    config GROGU_WIFI_SSID
+        string "Wi-Fi network to join (development fallback)"
+        default ""
+        help
+            Set in sdkconfig.secrets, never in a committed file. Used only when the prov partition
+            holds no network. Empty: no Wi-Fi.
+
+    config GROGU_WIFI_PASSWORD
+        string "Wi-Fi password (development fallback)"
+        default ""
+
+    config GROGU_FLEET
+        bool "Take firmware updates from Fleet (MQTT to AWS IoT Core)"
+        default y
+        help
+            Needs the prov partition from infra/scripts/provision-device.sh (Wi-Fi, IoT certificate).
+            Without it Grogu runs as before, just without updates.
+
+    config GROGU_OTA_FAIL_SELFTEST
+        bool "TEST ONLY: fail the post-update self-test, to check rollback"
+        default n
+        help
+            An image built with this fails its self-test after an update, so the bootloader rolls
+            back to the previous one, which reports "rolled back" to Fleet. Never publish one for
+            real use (publish-ota.sh refuses unless asked to test rollback).
+
+    config GROGU_OTA_DOWNLOAD_DEADLINE_S
+        int "Longest an update's download may take (seconds)"
+        default 300
+        range 10 900
+
+    config GROGU_HOSTNAME
+        string "Network host name"
+        default "grogu"
+
+endmenu
