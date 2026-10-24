@@ -8,7 +8,7 @@ v1 is modules on protoboard. A custom PCB can come later, once the bays work.
 |---|---|---|
 | 1 | ESP32-S3 dev board | Runs at 160 MHz (see `~/CLAUDE.md` on 240 MHz core voltage) |
 | 1 | 1.28" round GC9A01 240×240 SPI TFT | From the drawer |
-| 2 | INA226 module | **Swap the R100 shunt for R050** (50 mΩ, 1.6 A range). R100 saturates at 819 mA |
+| 3 | INA226 module (Pcbfun, AliExpress, ~£2.80) | Two plus a spare. Shunt is R010 (10 mΩ): 8 A range, 0.25 mA resolution, no swap needed. Avoid R100 modules (819 mA ceiling). Bridge **A0** on the back-bay module for 0x41 |
 | 2 | AP2553 (or AP2552 / TPS2553) current-limited high-side switch | Limit set by R_ILIM to ~1.5 A. Its FAULT flag goes to the S3 |
 | 1 | USB-C panel-mount socket, 5 V only | 5.1 kΩ CC1/CC2 to GND. Wall supply 5 V / 3 A |
 | 8 | P75 pogo pins | Four per bay, in a resin carrier. See [pogo-pins.md](pogo-pins.md) |

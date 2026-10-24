@@ -14,11 +14,12 @@ menu "Grogu (controller-stand)"
 
     config GROGU_SHUNT_MILLIOHM
         int "INA226 shunt resistance (milliohms)"
-        default 50
+        default 10
         help
-            Many INA226 modules ship with R100 (100 mOhm), which saturates at 819 mA:
-            too low for a charging controller. Swap it for R050 (50 mOhm, 1.6 A range)
-            and leave this at 50.
+            The prototype modules (Pcbfun, AliExpress) carry R010: 10 mOhm, an 8 A range
+            with 0.25 mA resolution. Some INA226 modules ship with R100 (100 mOhm), which
+            saturates at 819 mA, too low for a charging controller: swap it or set this
+            to match.
 
     config GROGU_PROBE_PERIOD_MS
         int "Presence probe period when a bay is empty (ms)"
