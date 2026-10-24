@@ -1,0 +1,12 @@
+# Name,   Type, SubType,  Offset,   Size
+# Fleet OTA, as Katooni's: nvs and phy at IDF's single-app offsets; prov holds this Grogu's Wi-Fi and
+# IoT credentials (infra/scripts/provision-device.sh), so every Grogu runs the same image and a
+# published one holds no secrets. Two 1.875 MB app slots for OTA with rollback, and a coredump; the
+# table fits the 4 MB flash (ends at 0x3F0000).
+nvs,      data, nvs,      0x9000,   0x6000
+phy_init, data, phy,      0xf000,   0x1000
+otadata,  data, ota,      0x10000,  0x2000
+prov,     data, nvs,      0x12000,  0x6000
+ota_0,    app,  ota_0,    0x20000,  0x1E0000
+ota_1,    app,  ota_1,    0x200000, 0x1E0000
+coredump, data, coredump, 0x3E0000, 64K
