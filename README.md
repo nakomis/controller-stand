@@ -1,3 +1,5 @@
+<img src="docs/logo.png" alt="controller-stand logo" width="200" align="right"/>
+
 # controller-stand — a slide-on charging stand for two PS5 DualSense controllers
 
 ## Support

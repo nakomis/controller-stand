@@ -9,7 +9,15 @@ firmware/build/
 firmware/managed_components/
 firmware/sdkconfig
 firmware/sdkconfig.old
-firmware/dependencies.lock
+firmware/build-*/
+
+# Fleet: device secrets (Wi-Fi, certificates and keys, prov.bin) and the CDK
+firmware/sdkconfig.secrets
+firmware/certs/
+infra/node_modules/
+infra/cdk.out/
+infra/cdk*.out/
+infra/coverage/
 
 # Host tests
 firmware/test/host/build/
@@ -24,3 +32,8 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Dense working data derived from the reference model: too close to a copy to commit.
+# Only the coarse section profiles (cad/reference-sections.csv) are committed.
+cad/reference-heightmap.csv
+cad/reference-measurements.png

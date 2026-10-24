@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Check out the post-merge state on PRs so CI validates what will land on main.
+env:
+  CHECKOUT_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.pull_request.number) || github.sha }}
+
+jobs:
+  host-tests:
+    name: Estimator host tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+      - name: Build with coverage
+        run: |
+          cmake -S firmware/test/host -B build/host -DCOVERAGE=ON
+          cmake --build build/host
+      - name: Test
+        run: ctest --test-dir build/host --output-on-failure
+      - name: Coverage (70% minimum)
+        run: |
+          cd build/host
+          pct=$(gcov -n "$(find . -name 'charge_estimator.c.gcda')" | awk -F'[:%]' '/Lines executed/ {print $2; exit}')
+          echo "charge_estimator.c line coverage: ${pct}%"
+          awk -v p="$pct" 'BEGIN { exit !(p >= 70) }'
+
+  firmware:
+    name: Firmware build
+    runs-on: ubuntu-latest
+    container: espressif/idf:v5.5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+      - name: idf.py build
+        working-directory: firmware
+        shell: bash
+        run: |
+          . "$IDF_PATH/export.sh"
+          idf.py build
+
+  infra:
+    name: Infra tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          package_json_file: infra/package.json
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '25'
+          cache: 'pnpm'
+          cache-dependency-path: infra/pnpm-lock.yaml
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Type-check
+        run: pnpm run build
+      - name: Test
+        run: pnpm test
+      - name: Synth (sandbox, no credentials)
+        run: NPM_ENVIRONMENT=sandbox CDK_DEFAULT_ACCOUNT=000000000000 npx cdk synth --output cdk-ci.out > /dev/null
+
+  ci-status:
+    name: CI Status
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [host-tests, firmware, infra]
+    steps:
+      - name: Check results
+        run: |
+          for r in "${{ needs.host-tests.result }}" "${{ needs.firmware.result }}" "${{ needs.infra.result }}"; do
+            if [ "$r" != "success" ] && [ "$r" != "skipped" ]; then
+              echo "A required job finished with: $r"
+              exit 1
+            fi
+          done
