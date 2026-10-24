@@ -40,6 +40,12 @@ jobs:
     name: Firmware build
     runs-on: ubuntu-latest
     container: espressif/idf:v5.5
+    env:
+      # dependencies.lock pins every component. Without this, the image's component
+      # manager probes for newer versions, reaches LVGL 9.6 through esp_lvgl_port's
+      # lvgl >=8,<10 range, and fails on its CONFIG_LV_USE_FREETYPE condition before
+      # Kconfig exists (MissingKconfigError).
+      IDF_COMPONENT_CHECK_NEW_VERSION: '0'
     steps:
       - uses: actions/checkout@v7
         with:
