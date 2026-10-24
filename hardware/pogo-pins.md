@@ -33,8 +33,11 @@ vertically (along Z) in an 8 mm strip printed standing up.
 
 ## Open questions for this stand
 
-- **Pointed tips on flat pads.** Fine electrically, but a crown or flat tip would be kinder to
-  the controller's pads over thousands of docks. Check the drawer for P75-E (flat) or
-  P75-H (crown) before settling.
+- **Tip style: P75-J1 (domed) ordered for the stand** (24 Oct 2026, AliExpress, 100 pcs).
+  A smooth dome is kind to the DualSense's gold pads, tolerates a degree or two of
+  misalignment on a sliding dock (a flat E-tip touches only on its edge unless it lands
+  square), and wipes as the controller settles. Same 1.02 mm barrel, so the 1.07 mm press
+  fit applies, but **16.5 mm long**, not 16.0: design the carrier for 16.5. The pointed
+  drawer pins are fine for bench tests.
 - **Current.** P75s are typically rated about 3 A, which is plenty for ~1 A per bay. Check the
   contact resistance under load once the bay is built.
