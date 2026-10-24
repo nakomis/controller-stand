@@ -1,0 +1,26 @@
+# Planning
+PLAN.md
+
+# Third-party reference model (CC BY-NC 4.0) — personal reference only, never commit
+printables/
+
+# ESP-IDF
+firmware/build/
+firmware/managed_components/
+firmware/sdkconfig
+firmware/sdkconfig.old
+firmware/dependencies.lock
+
+# Host tests
+firmware/test/host/build/
+
+# Coverage
+coverage/
+lcov.info
+
+# Python
+__pycache__/
+.venv/
+
+# macOS
+.DS_Store
