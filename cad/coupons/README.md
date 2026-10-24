@@ -10,12 +10,13 @@ before the full stand, and hold them against a real controller.
 
 ## Printing (resin, Cthulhu)
 
-Both go on one Elegoo Mars 5 Ultra plate (`slice-3d` skill): comb base down and tilted
-10° about Y, centre slice standing on its flat bottom edge. Every contact edge faces up,
-so supports only touch the comb's base and the slice's bottom edge. The first slice
-(24 Oct 2026, beige ABS-like at 2.0 s, the `known-good` profile) was 1,993 layers,
-99.6 mm, about 2 h 31 min, and roughly 50–55 ml of resin, uploaded as
-`/local/ndfm-controller-stand-test-pieces.goo`.
+Both go on one Elegoo Mars 5 Ultra plate (`slice-3d` skill), **straight on the
+(flexible) build plate with no supports**: comb base down, centre slice standing on its
+flat bottom edge. Nothing overhangs, so the rest-surface edges come out unmarked, and the
+comb's base sits on the same datum the rib heights are measured from. The first print
+(24 Oct 2026, beige ABS-like at 2.0 s, `known-good` profile) was 1,682 layers, 84.1 mm,
+about 2 h 8 min and ~42 ml, as `/local/ndfm-controller-stand-test-pieces-flat.goo`.
+Flex the plate along the long edge to release the comb's base.
 
 ## What to look for
 
